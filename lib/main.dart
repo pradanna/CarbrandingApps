@@ -1,29 +1,27 @@
+import 'package:carbranding_apps/RoutePage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'controller/binding/loginBinding.dart';
-import 'login.dart';
-import 'home.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  // await GetStorage.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    // Use builder only if you need to use library outside ScreenUtilInit context
+    builder: (_ , child) {
     return GetMaterialApp(
-      initialRoute: '/login',
-      getPages: [
-        GetPage(
-          name: '/login',
-          page: () => LoginView(),
-          binding: LoginBinding(),
-        ),
-        GetPage(
-          name: '/home',
-          page: () => HomeView(),
-        ),
-      ],
+      initialRoute: '/',
+      getPages: RoutePage().route
     );
+  } );
   }
 }

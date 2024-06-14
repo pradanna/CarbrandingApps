@@ -9,20 +9,29 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Gambar penuh di bagian atas
+          // Background image
           Container(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.52,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/top_image.jpg'), // Ganti dengan path gambar Anda
+                image: AssetImage('assets/loginbg.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Bottom sheet untuk form login
+          // Logo
+          Positioned(
+            top: 50,
+            left: 30,
+            child: Image.asset(
+              'assets/seelogo.png',
+              height: 50, // Adjust the height of the logo as needed
+            ),
+          ),
+          // Bottom sheet for login form
           DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.6,
+            initialChildSize: 0.5,
+            minChildSize: 0.5,
             maxChildSize: 1.0,
             builder: (context, scrollController) {
               return Container(
@@ -44,39 +53,37 @@ class LoginView extends StatelessWidget {
                           'Login',
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                         ),
+                        SizedBox(height: 5),
+                        Text(
+                          'Masukan Email dan Password',
+                          style: TextStyle(fontSize: 12),
+                        ),
                         SizedBox(height: 20),
-                        TextField(
+                        buildTextFieldWithIcon(
+                          Icons.email,
+                          'Email',
                           onChanged: (value) => controller.email.value = value,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            prefixIcon: Icon(Icons.email), // Icon in front of the TextField
-                          ),
+                          borderColor: Colors.black, // Change border color here
                         ),
                         SizedBox(height: 20),
-                        TextField(
+                        buildTextFieldWithIcon(
+                          Icons.lock,
+                          'Password',
                           onChanged: (value) => controller.password.value = value,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            prefixIcon: Icon(Icons.lock), // Icon in front of the TextField
-                          ),
                           obscureText: true,
+                          borderColor: Colors.black, // Change border color here
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 50),
                         Obx(() => controller.isLoading.value
                             ? CircularProgressIndicator()
                             : SizedBox(
-                          width: double.infinity, // Makes the button full width
+                          width: double.infinity,
                           child: ElevatedButton(
                             onPressed: controller.login,
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 15.0), // Padding inside the button
-                              foregroundColor: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 15.0),
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.lightBlue,
                             ),
                             child: Text('Login'),
                           ),
@@ -89,6 +96,42 @@ class LoginView extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildTextFieldWithIcon(
+      IconData iconData,
+      String labelText, {
+        ValueChanged<String>? onChanged,
+        bool obscureText = false,
+        Color borderColor = Colors.black, // Default border color
+      }) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      child: TextField(
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          labelText: labelText,
+          prefixIcon: Icon(iconData),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: borderColor), // Border color
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: borderColor), // Focused border color
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: borderColor.withOpacity(0.2)), // Enabled border color
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.black), // Error border color
+          ),
+        ),
+        obscureText: obscureText,
       ),
     );
   }
