@@ -16,7 +16,8 @@ class SplashScreenController extends GetxController {
 
     Future.delayed(const Duration(milliseconds: 2000), () {
       if(token == null){
-        Get.offNamed("/login");
+        Get.offNamed("/home");
+        // Get.offNamed("/login");
       }else{
         Get.offNamed("/home");
       }

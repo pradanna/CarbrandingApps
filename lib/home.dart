@@ -22,7 +22,12 @@ class HomeView extends StatelessWidget {
             ),
           ),
           // Centered text on the background image
-          buildDriverCard(driverName: "Pradana", carNumber: "AD 0024 KK", carType: "Calya Yellow", status: "Iklan Campus"),
+          Column(
+            children: [
+              SizedBox(height: 50.h,),
+              Center(child: Container(child: buildDriverCard(driverName: "Pradana", carNumber: "AD 0024 KK", carType: "Calya Yellow", status: "Iklan Campus"))),
+            ],
+          ),
           // Draggable scrollable sheet at the bottom
           DraggableScrollableSheet(
             initialChildSize: 0.52, // Initial size of the sheet relative to screen height
@@ -98,14 +103,50 @@ Widget buildDriverCard({
     ),
     child: Container(
       padding: const EdgeInsets.all(16.0),
-      margin: EdgeInsets.all(16),
-      width: 0.8.sw,
+      margin: EdgeInsets.all(8),
+      width: 0.9.sw,
       height: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              Container(
+                child: CircleAvatar(
+                  radius: 30, // Ukuran radius lingkaran
+                  backgroundImage: AssetImage('assets/user.png'), // Ganti dengan URL gambar Anda
+                  backgroundColor: Colors.blue, // Warna latar belakang jika gambar gagal dimuat
+                ),
+              ),
+              SizedBox(width: 20,),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pradana Mahendra',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'New Calya',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'AD 2755 HU',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ],
+          ),
+
           Text(
-            'Driver Name:',
+            'Iklan yang sedang aktif',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -113,48 +154,10 @@ Widget buildDriverCard({
           ),
           SizedBox(height: 5),
           Text(
-            driverName,
+            "Nama Iklan",
             style: TextStyle(fontSize: 16),
           ),
-          SizedBox(height: 10),
-          Text(
-            'Car Number:',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            carNumber,
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Car Type:',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            carType,
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Status:',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            status,
-            style: TextStyle(fontSize: 16),
-          ),
+
         ],
       ),
     ),
