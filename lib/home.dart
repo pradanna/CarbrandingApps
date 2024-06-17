@@ -1,3 +1,4 @@
+import 'package:carbranding_apps/Components/photoInfoCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -5,161 +6,202 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Remove the default appBar and set a transparent status bar
       extendBodyBehindAppBar: true,
-
-      body: Stack(
-        children: [
-          // Background image
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.52,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background.jpg'), // Replace with your image path
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Centered text on the background image
-          Column(
+      body: Container(
+        height: 1.sh,
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              SizedBox(height: 50.h,),
-              Center(child: Container(child: buildDriverCard(driverName: "Pradana", carNumber: "AD 0024 KK", carType: "Calya Yellow", status: "Iklan Campus"))),
-            ],
-          ),
-          // Draggable scrollable sheet at the bottom
-          DraggableScrollableSheet(
-            initialChildSize: 0.52, // Initial size of the sheet relative to screen height
-            minChildSize: 0.52, // Minimum size of the sheet relative to screen height
-            maxChildSize: 0.8, // Maximum size of the sheet relative to screen height
-            builder: (context, scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              Stack(
+                children: [
+                  Container(
+                    height: 300,
+                    width: 1.sw,
+                    child: Stack(
                       children: [
-                        Center(
-                          child: Container(
-                            width: 50,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[400],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          height: 250,
+                          width: 1.sh,
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              image: DecorationImage(
+                                image: AssetImage('assets/background.jpg'),
+                                fit: BoxFit
+                                    .cover, // Menyesuaikan ukuran gambar sesuai dengan ukuran container
+                              )),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Pradana Mahendra",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w900)),
+                              Text(
+                                "New Calya || AD 2031 KK",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 50,
+                              )
+                            ],
                           ),
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Your Content Here',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec velit sit amet ante luctus malesuada. Sed venenatis magna eget lacus varius, non accumsan urna feugiat. Donec nec felis vitae velit volutpat tempor. Nullam ullamcorper libero eu orci laoreet, at ultricies eros maximus. Duis tristique purus eget turpis congue, nec tincidunt nulla eleifend.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        SizedBox(height: 20),
-                        // Add your additional widgets here
+                        Positioned(
+                            top: 20,
+                            child: Container(
+                              padding: EdgeInsets.all(24),
+                              width: 1.sw,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: Image.asset('assets/seelogo.png')),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset('assets/user.png')),
+                                  ),
+                                ],
+                              ),
+                            ))
                       ],
                     ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-Widget buildDriverCard({
-  required String driverName,
-  required String carNumber,
-  required String carType,
-  required String status,
-}) {
-  return Card(
-    elevation: 3,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    child: Container(
-      padding: const EdgeInsets.all(16.0),
-      margin: EdgeInsets.all(8),
-      width: 0.9.sw,
-      height: 200,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                child: CircleAvatar(
-                  radius: 30, // Ukuran radius lingkaran
-                  backgroundImage: AssetImage('assets/user.png'), // Ganti dengan URL gambar Anda
-                  backgroundColor: Colors.blue, // Warna latar belakang jika gambar gagal dimuat
-                ),
-              ),
-              SizedBox(width: 20,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Pradana Mahendra',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  Positioned(
+                    top: 200,
+                    child: Container(
+                      width: 1.sw,
+                      child: Center(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          width: 0.8.sw,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(3, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Container(
+                            height: double.infinity,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Iklan yang sedang aktif"),
+                                  Text(
+                                    "UNS Campus ",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Sampai tanggal 20 Juni 2024",
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    'New Calya',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'AD 2755 HU',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 10),
                 ],
               ),
+              Container(
+                padding: EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    Text(
+                      "Daftar Foto Laporan Anda",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                    PhotoInfoCard(
+                      photoPath: 'assets/background.jpg',
+                      // Ganti dengan path gambar Anda
+                      photoType: 'Jenis Foto',
+                      date: '17 Juni 2024',
+                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-
-          Text(
-            'Iklan yang sedang aktif',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            "Nama Iklan",
-            style: TextStyle(fontSize: 16),
-          ),
-
-        ],
+        ),
       ),
-    ),
-  );
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
+          print('Floating Action Button Pressed');
+        },
+        icon: Icon(Icons.add),
+        label: Text('Tambahkan Laporan'),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
 }
