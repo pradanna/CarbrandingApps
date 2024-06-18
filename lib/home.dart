@@ -194,7 +194,7 @@ class HomeView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.offNamed("/tambahlaporan");
+          Get.toNamed("/chooseReport");
           // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
           print('Floating Action Button Pressed s');
         },
