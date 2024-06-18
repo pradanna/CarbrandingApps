@@ -1,9 +1,9 @@
+import 'package:carbranding_apps/Components/TakePhotoCard.dart';
 import 'package:carbranding_apps/Components/photoInfoCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-class HomeView extends StatelessWidget {
+class TambahLaporanView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,13 +16,13 @@ class HomeView extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 300,
+                    height: 100,
                     width: 1.sw,
                     child: Stack(
                       children: [
                         Container(
                           padding: EdgeInsets.all(16),
-                          height: 250,
+                          height: 100,
                           width: 1.sh,
                           decoration: BoxDecoration(
                               color: Colors.blue,
@@ -31,24 +31,6 @@ class HomeView extends StatelessWidget {
                                 fit: BoxFit
                                     .cover, // Menyesuaikan ukuran gambar sesuai dengan ukuran container
                               )),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Pradana Mahendra",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w900)),
-                              Text(
-                                "New Calya || AD 2031 KK",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(
-                                height: 50,
-                              )
-                            ],
-                          ),
                         ),
                         Positioned(
                             top: 20,
@@ -62,14 +44,16 @@ class HomeView extends StatelessWidget {
                                   SizedBox(
                                       width: 50,
                                       height: 50,
-                                      child: Image.asset('assets/seelogo.png')),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset('assets/user.png')),
-                                  ),
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        color: Colors.white,
+                                      )),
+                                  Text(
+                                    "Tambahkan Laporan",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )
                                 ],
                               ),
                             ))
@@ -133,57 +117,27 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Daftar Foto Laporan Anda",
+                      "Ambil Foto Sesuai dengan Jenis Foto",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                    SizedBox(
+                      height: 20,
                     ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
+                    Takephotocard(
+                      imagePath: 'assets/background.jpg',
                       // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                      photoType: 'Speedometer',
+                      onTakePhoto: () {
+                        print('Ambil Foto button pressed');
+                      },
                     ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
+                    Takephotocard(
+                      imagePath: 'assets/background.jpg',
                       // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
+                      photoType: 'Stiker Belakang',
+                      onTakePhoto: () {
+                        print('Ambil Foto button pressed');
+                      },
                     ),
                   ],
                 ),
@@ -192,18 +146,6 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Get.offNamed("/tambahlaporan");
-          // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
-          print('Floating Action Button Pressed s');
-        },
-        icon: Icon(Icons.add),
-        label: Text('Tambahkan Laporan'),
-        backgroundColor: Colors.orange,
-        foregroundColor: Colors.white,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
