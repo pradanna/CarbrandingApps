@@ -114,10 +114,10 @@ class HomeView extends StatelessWidget {
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    "Sampai tanggal 20 Juni 2024",
-                                    style: TextStyle(fontSize: 10.sp),
-                                  ),
+                                  // Text(
+                                  //   "Sampai tanggal 20 Juni 2024",
+                                  //   style: TextStyle(fontSize: 10.sp),
+                                  // ),
                                 ],
                               ),
                             ),

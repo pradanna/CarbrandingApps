@@ -1,11 +1,24 @@
+import 'dart:io';
+
 import 'package:carbranding_apps/Components/TakePhotoCard.dart';
 import 'package:carbranding_apps/Components/photoInfoCard.dart';
+import 'package:carbranding_apps/controller/ReportController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'controller/imagePickerController.dart';
 
 class TambahLaporanView extends StatelessWidget {
+  final ImagePickerController controller = Get.put(ImagePickerController());
+  final ReportController reportController = Get.put(ReportController());
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController typeController = TextEditingController();
+    final TextEditingController latController = TextEditingController();
+    final TextEditingController lngController = TextEditingController();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Container(
@@ -124,19 +137,21 @@ class TambahLaporanView extends StatelessWidget {
                       height: 20,
                     ),
                     Takephotocard(
-                      imagePath: 'assets/background.jpg',
+                      imagePreview: Obx(() =>
+                          controller.selectedImagePath.value == ''
+                              ? Text('No image selected.')
+                              : Image.file(
+                                  File(controller.selectedImagePath.value))),
                       // Ganti dengan path gambar Anda
                       photoType: 'Speedometer',
-                      onTakePhoto: () {
-                        print('Ambil Foto button pressed');
-                      },
-                    ),
-                    Takephotocard(
-                      imagePath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Stiker Belakang',
-                      onTakePhoto: () {
-                        print('Ambil Foto button pressed');
+                      onTakePhoto: () =>
+                          controller.pickImage(ImageSource.camera),
+                      SendData: () {
+                        final type = "Spedo";
+                        final lat = "-7.546788418548";
+                        final lng = "10.1618181681681";
+                        final imagePath = controller.selectedImagePath.value;
+                        reportController.sendReport(type, lat, lng, imagePath);
                       },
                     ),
                   ],

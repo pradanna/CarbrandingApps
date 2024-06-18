@@ -6,19 +6,20 @@ class SplashScreenController extends GetxController {
   GetStorage box = GetStorage();
 
   @override
-  void onInit()  {
+  void onInit() {
     super.onInit();
     runsplash();
   }
 
   void runsplash() async {
-   var token =  await box.read("token");
+    var token = await box.read("token");
 
+    print('token splash ' + token.toString());
     Future.delayed(const Duration(milliseconds: 2000), () {
-      if(token == null){
+      if (token == null) {
         Get.offNamed("/login");
         // Get.offNamed("/login");
-      }else{
+      } else {
         Get.offNamed("/home");
       }
     });

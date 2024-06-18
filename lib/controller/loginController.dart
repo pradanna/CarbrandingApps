@@ -12,15 +12,15 @@ class LoginController extends GetxController {
     isLoading(true);
     // Simulasikan proses login
 
-
     // Jika login berhasil, navigasi ke halaman berikutnya
     try {
-      print('try to Login '+email.value+" "+password.value);
+      print('try to Login ' + email.value + " " + password.value);
       final response = await _apiService.login(email.value, password.value);
 
       if (response.statusCode == 200) {
         // Handle successful login
-        print('Login successful '+response.toString());
+        Get.offNamed("/home");
+        print('Login successful ' + response.toString());
       } else {
         errorMessage('Login failed: ${response.data['message']}');
       }
