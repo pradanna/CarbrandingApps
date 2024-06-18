@@ -40,7 +40,7 @@ class PhotoInfoCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
-                image: AssetImage(photoPath),
+                image: NetworkImage(photoPath),
                 fit: BoxFit.cover,
               ),
             ),

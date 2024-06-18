@@ -1,9 +1,12 @@
 import 'package:carbranding_apps/Components/photoInfoCard.dart';
+import 'package:carbranding_apps/controller/homeController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
+  final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,25 +34,28 @@ class HomeView extends StatelessWidget {
                                 fit: BoxFit
                                     .cover, // Menyesuaikan ukuran gambar sesuai dengan ukuran container
                               )),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Pradana Mahendra",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w900)),
-                              Text(
-                                "New Calya || AD 2031 KK",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(
-                                height: 50,
-                              )
-                            ],
+                          child: Obx(() =>
+                          controller.isLoading.value
+                              ? Center(child: CircularProgressIndicator()) :
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(controller.profileData['data']['name'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w900)),
+                                Text(
+                                  "New Calya" +" | "+ controller.profileData['data']['vehicle_id'],
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                )
+                              ],
+                            ),)
                           ),
-                        ),
                         Positioned(
                             top: 20,
                             child: Container(
@@ -107,12 +113,14 @@ class HomeView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text("Iklan yang sedang aktif"),
-                                  Text(
-                                    "UNS Campus ",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold),
+                                  Obx(() => controller.isLoading.value ? Center(child: CircularProgressIndicator()) :
+                                    Text(
+                                      controller.profileData['data']['broadcast_name'],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                   // Text(
                                   //   "Sampai tanggal 20 Juni 2024",
@@ -136,55 +144,12 @@ class HomeView extends StatelessWidget {
                       "Daftar Foto Laporan Anda",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
-                    PhotoInfoCard(
-                      photoPath: 'assets/background.jpg',
-                      // Ganti dengan path gambar Anda
-                      photoType: 'Jenis Foto',
-                      date: '17 Juni 2024',
-                      location: 'Jl. Ontorejo no 8 Serengan Solo',
-                    ),
+                    ...controller.reports.map((report) => PhotoInfoCard(
+                      photoPath: "https://carbranding.genossys.com"+report['image'], // Ganti dengan path gambar dari API
+                      photoType: report['type'] ?? 'Jenis Foto',
+                      date: report['created_at'] ?? 'Tanggal',
+                      location: report['location'] ?? 'Lokasi',
+                    )).toList(),
                   ],
                 ),
               )
