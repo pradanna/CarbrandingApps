@@ -58,13 +58,18 @@ class TambahLaporanView extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: Icon(
-                                            Icons.arrow_back,
-                                            color: Colors.white,
-                                          )),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: Icon(
+                                              Icons.arrow_back,
+                                              color: Colors.white,
+                                            )),
+                                      ),
                                       Text(
                                         "Tambahkan Laporan",
                                         style: TextStyle(
@@ -101,16 +106,37 @@ class TambahLaporanView extends StatelessWidget {
                           photoType: argtype,
                           onTakePhoto: () =>
                               controller.pickImage(ImageSource.camera),
-                          SendData: () {
-                            final type = argtype.toString();
-                            final lat = "-7.546788418548";
-                            final lng = "10.1618181681681";
-                            final imagePath =
-                                controller.selectedImagePath.value;
-                            reportController.sendReport(
-                                type, lat, lng, imagePath);
-                          },
-                        ),
+                          kirimButton: Obx(
+                            () => controller.selectedImagePath.value == ''
+                                ? Container()
+                                : ElevatedButton(
+                                    onPressed: () {
+                                      final type = argtype.toString();
+                                      final lat = "-7.546788418548";
+                                      final lng = "10.1618181681681";
+                                      final imagePath =
+                                          controller.selectedImagePath.value;
+                                      reportController.sendReport(
+                                          type, lat, lng, imagePath);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      // Background color
+                                      foregroundColor: Colors.white,
+                                      // Text color
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration:
+                                          BoxDecoration(color: Colors.green),
+                                      child: Center(child: Text("Kirim")),
+                                    )),
+                          ),
+                        )
                       ],
                     ),
                   )

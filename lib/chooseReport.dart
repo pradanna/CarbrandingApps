@@ -50,13 +50,18 @@ class ChooseReport extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.white,
-                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Icon(
+                                          Icons.arrow_back,
+                                          color: Colors.white,
+                                        )),
+                                  ),
                                   Text(
                                     "Pilih Jenis Laporan",
                                     style: TextStyle(

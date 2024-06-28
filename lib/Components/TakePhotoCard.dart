@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 
 class Takephotocard extends StatelessWidget {
   final Widget imagePreview;
+  final Widget kirimButton;
   final String photoType;
   final VoidCallback onTakePhoto;
-  final VoidCallback SendData;
 
   Takephotocard({
     required this.imagePreview,
     required this.photoType,
     required this.onTakePhoto,
-    required this.SendData,
+    required this.kirimButton,
   });
 
   @override
@@ -70,20 +70,7 @@ class Takephotocard extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          ElevatedButton(
-              onPressed: SendData,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green, // Background color
-                foregroundColor: Colors.white, // Text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(color: Colors.green),
-                child: Center(child: Text("Kirim")),
-              ))
+          kirimButton
         ],
       ),
     );

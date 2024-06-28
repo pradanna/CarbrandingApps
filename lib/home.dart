@@ -1,3 +1,4 @@
+import 'package:carbranding_apps/Components/helper/date_time_helper.dart';
 import 'package:carbranding_apps/Components/photoInfoCard.dart';
 import 'package:carbranding_apps/controller/homeController.dart';
 import 'package:flutter/material.dart';
@@ -24,38 +25,45 @@ class HomeView extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(16),
-                          height: 250,
-                          width: 1.sh,
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              image: DecorationImage(
-                                image: AssetImage('assets/background.jpg'),
-                                fit: BoxFit
-                                    .cover, // Menyesuaikan ukuran gambar sesuai dengan ukuran container
-                              )),
-                          child: Obx(() =>
-                          controller.isLoading.value
-                              ? Center(child: CircularProgressIndicator()) :
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(controller.profileData['data']['name'],
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w900)),
-                                Text(
-                                  "New Calya" +" | "+ controller.profileData['data']['vehicle_id'],
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                SizedBox(
-                                  height: 50,
-                                )
-                              ],
-                            ),)
-                          ),
+                            padding: EdgeInsets.all(16),
+                            height: 250,
+                            width: 1.sh,
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                image: DecorationImage(
+                                  image: AssetImage('assets/background.jpg'),
+                                  fit: BoxFit
+                                      .cover, // Menyesuaikan ukuran gambar sesuai dengan ukuran container
+                                )),
+                            child: Obx(
+                              () => controller.isLoading.value
+                                  ? Center(child: CircularProgressIndicator())
+                                  : Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            controller.profileData['data']
+                                                ['name'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w900)),
+                                        Text(
+                                          controller.profileData['data']
+                                                  ['car_type']['name'] +
+                                              " | " +
+                                              controller.profileData['data']
+                                                  ['vehicle_id'],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          height: 50,
+                                        )
+                                      ],
+                                    ),
+                            )),
                         Positioned(
                             top: 20,
                             child: Container(
@@ -70,7 +78,9 @@ class HomeView extends StatelessWidget {
                                       height: 50,
                                       child: Image.asset('assets/seelogo.png')),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.toNamed("/profile");
+                                    },
                                     child: SizedBox(
                                         width: 50,
                                         height: 50,
@@ -113,14 +123,18 @@ class HomeView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text("Iklan yang sedang aktif"),
-                                  Obx(() => controller.isLoading.value ? Center(child: CircularProgressIndicator()) :
-                                    Text(
-                                      controller.profileData['data']['broadcast_name'],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  Obx(
+                                    () => controller.isLoading.value
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : Text(
+                                            controller.profileData['data']
+                                                ['broadcast_name'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                   ),
                                   // Text(
                                   //   "Sampai tanggal 20 Juni 2024",
@@ -144,12 +158,30 @@ class HomeView extends StatelessWidget {
                       "Daftar Foto Laporan Anda",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    ...controller.reports.map((report) => PhotoInfoCard(
-                      photoPath: "https://carbranding.genossys.com"+report['image'], // Ganti dengan path gambar dari API
-                      photoType: report['type'] ?? 'Jenis Foto',
-                      date: report['created_at'] ?? 'Tanggal',
-                      location: report['location'] ?? 'Lokasi',
-                    )).toList(),
+                    Obx(
+                      () => controller.isLoadingReport.value
+                          ? Center(child: CircularProgressIndicator())
+                          : Column(
+                              children: controller.reports
+                                  .map((report) => PhotoInfoCard(
+                                        photoPath:
+                                            "https://carbranding.genossys.com" +
+                                                report['image'],
+                                        // Ganti dengan path gambar dari API
+                                        photoType:
+                                            report['type'] ?? 'Jenis Foto',
+                                        date: DateTimeHelper
+                                                .formatDateTimeFromString(
+                                                    report['created_at']) ??
+                                            'Tanggal',
+                                        location: report['location'] ?? '',
+                                      ))
+                                  .toList(),
+                            ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                    )
                   ],
                 ),
               )

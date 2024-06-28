@@ -1,3 +1,4 @@
+import 'package:carbranding_apps/Profil.dart';
 import 'package:carbranding_apps/camera.dart';
 import 'package:carbranding_apps/chooseReport.dart';
 import 'package:carbranding_apps/home.dart';
@@ -16,5 +17,6 @@ class RoutePage {
     GetPage(name: "/tambahlaporan", page: () => TambahLaporanView()),
     GetPage(name: "/camera", page: () => ImagePickerPage()),
     GetPage(name: "/chooseReport", page: () => ChooseReport()),
+    GetPage(name: "/profile", page: () => ProfileView()),
   ];
 }
